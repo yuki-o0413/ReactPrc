@@ -1,16 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
 import { List } from "./List";
 import { Form } from "./Form";
-import {LANGUAGES} from "./const/languages";
+import {getLanguages, LANGUAGES} from "./const/languages";
 
 function App() {
   const [tab, setTab] = useState('list');
-  const [langs, setLangs] = useState(LANGUAGES);
+  const [langs, setLangs] = useState([]);
+
+  //1秒後にリストが表示されるようにする
+  useEffect(() => {
+    console.log('App.js:useEffect');
+    fetchLanguages();
+  }, []);
+
+  const fetchLanguages = async () =>{
+    const languages = await getLanguages();
+    setLangs(languages);
+  };
 
   const addLang = (lang) => {
     console.log(lang);
     setLangs([...langs, lang])
-    setTab('list');//言語が追加されたら、タブが切り替わるようにしている
+    setTab('list');
   }
 
   return (
