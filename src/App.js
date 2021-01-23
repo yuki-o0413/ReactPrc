@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { List } from "./List";
 import { Form } from "./Form";
 import {getLanguages} from "./const/languages";
+import { withLoading } from "./hoc/with-loading";
 
 const Header = styled.header`
   display: flex;
@@ -23,20 +24,9 @@ const HeaderLi = styled.li`
   border-bottom: ${props => props.focused ? '2px solid #F44336' : 'none' };
 `
 
-function App() {
+function App({data}) {
   const [tab, setTab] = useState('list');
-  const [langs, setLangs] = useState([]);
-
-  //1秒後にリストが表示されるようにする
-  useEffect(() => {
-    console.log('App.js:useEffect');
-    fetchLanguages();
-  }, [tab]);
-
-  const fetchLanguages = async () =>{
-    const languages = await getLanguages();
-    setLangs(languages);
-  };
+  const [langs, setLangs] = useState(data);
 
   const addLang = (lang) => {
     console.log(lang);
@@ -52,7 +42,6 @@ function App() {
           <HeaderLi onClick={() => setTab('form')}>フォーム</HeaderLi>
         </HeaderUl>
       </Header>
-      <hr />
       {
         tab === 'list' ? <List langs={langs}/> : <Form onAddLang={addLang}/>
       }
@@ -60,4 +49,4 @@ function App() {
   );
 }
 
-export default App;
+export default withLoading(App, getLanguages);
