@@ -1,8 +1,6 @@
 import styled from 'styled-components';
+import { TabBodyContainer } from "./components/tab-body-container";
 
-const Component = styled.div`
-  padding: 12px 64px;
-`
 const ListItem = styled.div`
   padding: 8px 16px;
   &:nth-child(n+2) {
@@ -12,12 +10,14 @@ const ListItem = styled.div`
 export const List = ({langs}) => {
   // 渡されたlangsを利用するようにする
   return (
-    <Component>
-      {
-        langs.map((lang, index) => {
-          return <ListItem key={index}>{ lang }</ListItem>
-        })
-      }
-    </Component>
+    <TabBodyContainer titled="取り扱い言語リスト">
+      <div>
+        {
+          langs.map((lang, index) => {
+            return <ListItem key={index}>{ lang }</ ListItem>
+          })
+        }
+      </div>
+    </TabBodyContainer>
   )
 };
