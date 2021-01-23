@@ -1,12 +1,23 @@
+import styled from 'styled-components';
+
+const Component = styled.div`
+  padding: 12px 64px;
+`
+const ListItem = styled.div`
+  padding: 8px 16px;
+  &:nth-child(n+2) {
+    border-top: 1px solid #D9DBDE;
+  }
+`
 export const List = ({langs}) => {
   // 渡されたlangsを利用するようにする
   return (
-    <div>
+    <Component>
       {
         langs.map((lang, index) => {
-          return <div key={index}>{ lang }</div>
+          return <ListItem key={index}>{ lang }</ListItem>
         })
       }
-    </div>
+    </Component>
   )
 };
